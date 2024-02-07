@@ -14,7 +14,7 @@ phases:
     commands:
       - echo "Building infrastructure with Terraform"
       - terraform init
-      - terraform apply --auto-approve
+      - terraform apply -var-file=group2_cap2.tfvars --auto-approve
   post_build:
     commands:
       - echo "Build complete"
