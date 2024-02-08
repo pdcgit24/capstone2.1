@@ -10,6 +10,9 @@ phases:
     - source ~/.bashrc
     - echo 'Check kubectl version'
     - kubectl version --short --client
+    - curl -O https://raw.githubusercontent.com/kubernetes-sigs/aws-load-balancer-controller/v2.5.4/docs/install/iam_policy.json
+    - aws iam create-policy --policy-name Group2AWSLoadBalancerControllerIAMPolicy  --policy-document file://iam_policy.json
+    - eksctl create iamserviceaccount --cluster=group2-capstone2-eks-cluster --namespace=kube-system --name=group2-aws-load-balancer-controller --role-name Group2AmazonEKSLoadBalancerControllerRole --attach-policy-arn=arn:aws:iam::962804699607:policy/Group2AWSLoadBalancerControllerIAMPolicy --approve
   pre_build:
     commands:
       - echo Logging into Amazon EKS...

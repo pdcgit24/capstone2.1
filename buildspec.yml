@@ -1,4 +1,7 @@
 version: 0.2
+env:
+  variables:
+    GROUP2_ECR_REPO_VAR: "962804699607.dkr.ecr.us-west-2.amazonaws.com/group2-cap2-ecr-repo-tf"
 phases:
   install:
     commands:
@@ -12,20 +15,20 @@ phases:
     commands:
       - echo logging in to AWS ECR...
       - aws ecr get-login-password --region us-west-2 | docker login --username AWS --password-stdin 962804699607.dkr.ecr.us-west-2.amazonaws.com
-      - echo "Pre Building infrastructure with Terraform...."
-      - terraform init -reconfigure
-      - terraform apply -var-file=group2_cap2.tfvars --auto-approve
   build:
     commands:
         - echo build Docker image on `date`
         - docker build -t group2-cap2-ecr-repo .
-        - docker tag group2-cap2-ecr-repo:latest 962804699607.dkr.ecr.us-west-2.amazonaws.com/group2-cap2-ecr-repo:latest
+        - docker tag group2-cap2-ecr-repo:latest $GROUP2_ECR_REPO_VAR:latest
   post_build:
     commands:
         - echo build Docker image complete `date`
         - echo push latest Docker images to ECR...
-        - docker push 962804699607.dkr.ecr.us-west-2.amazonaws.com/group2-cap2-ecr-repo:latest
+        - docker push $GROUP2_ECR_REPO_VAR:latest
         - echo Ran Docker push last command........
-        - printf '[{"name":"Group2-Cap2-App","imageUri":"962804699607.dkr.ecr.us-west-2.amazonaws.com/group2-cap2-ecr-repo:latest"}]' > imagedefinitions.json
+        - echo "Pre Building infrastructure with Terraform...."
+        - terraform init -reconfigure
+        - terraform apply -var-file=group2_cap2.tfvars --auto-approve
+        - printf '[{"name":"Group2-Cap2-App","imageUri":"$GROUP2_ECR_REPO_VAR:latest"}]' > imagedefinitions.json
 artifacts:
   files: imagedefinitions.json
