@@ -19,11 +19,11 @@ terraform {
 
 }
   
-# Configure the AWS Provider
 provider "aws" {
-    region =var.aws_region
+  region     = "us-west-2"
+  access_key = var.access_key
+  secret_key = var.secret_key
 }
-
 
 data "aws_secretsmanager_secret_version" "creds" {
   # Fill in the name you gave to your secret
