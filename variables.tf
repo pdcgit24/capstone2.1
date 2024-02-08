@@ -47,3 +47,24 @@ variable "container_port" {
   type        = number 
 }
 
+
+
+variable "s3_backend_tag" {
+  type        = string
+}
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

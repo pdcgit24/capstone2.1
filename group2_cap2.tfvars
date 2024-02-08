@@ -9,3 +9,4 @@ alb_security_group="group2-cap2-alb-security-group-tf"
 target_group="group2-cap2-target-group-tf"
 service_security_group="group2-cap2-service-sg-tf"
 container_port=3000
+s3_backend_tag="group2_cap2_s3_tfstate"

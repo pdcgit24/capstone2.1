@@ -9,13 +9,19 @@ terraform {
       source = "kreuzwerker/docker"
       version = "~> 3.0.1"
     }
+    
   }
+    backend "s3" {
+    bucket = "group2-cap2-s3-tfstate"
+    key    = "state/remote-state"
+    region = "us-west-2"
+  }
+
 }
-
-
+  
 # Configure the AWS Provider
 provider "aws" {
-    region=var.aws_region
+    region =var.aws_region
 }
 
 
@@ -28,6 +34,16 @@ data "aws_secretsmanager_secret_version" "creds" {
 resource "aws_ecr_repository" "my_first_ecr_repo" {
   name = var.ecr_repo_name # Naming my repository
 }
+
+/*
+resource "aws_s3_bucket" "my_s3_bucket" {
+  bucket = var.s3_backend_name
+  region = var.aws_region
+  tags = {
+    Name = var.s3_backend_tag
+  }
+}
+*/
 
 
 resource "aws_ecs_cluster" "my_cluster" {

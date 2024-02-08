@@ -14,6 +14,8 @@ phases:
       - echo logging in to AWS ECR...
       - aws ecr get-login-password --region us-west-2 | docker login --username AWS --password-stdin 962804699607.dkr.ecr.us-west-2.amazonaws.com
       - echo "Pre Building infrastructure with Terraform...."
+      - terraform init
+      - terraform apply -var-file=group2_cap2.tfvars --auto-approve
   build:
     commands:
         - echo build Docker image on `date`
