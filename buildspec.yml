@@ -2,6 +2,7 @@ version: 0.2
 env:
   variables:
     GROUP2_ECR_REPO_VAR: "962804699607.dkr.ecr.us-west-2.amazonaws.com/group2-cap2-ecr-repo-tf"
+    GROUP2_ECR_REPO_TAG_VAR: "group2-cap2-ecr-repo-tf"
 phases:
   install:
     commands:
@@ -18,8 +19,8 @@ phases:
   build:
     commands:
         - echo build Docker image on `date`
-        - docker build -t group2-cap2-ecr-repo .
-        - docker tag group2-cap2-ecr-repo:latest $GROUP2_ECR_REPO_VAR:latest
+        - docker build -t $GROUP2_ECR_REPO_TAG_VAR .
+        - docker tag $GROUP2_ECR_REPO_TAG_VAR:latest $GROUP2_ECR_REPO_VAR:latest
   post_build:
     commands:
         - echo build Docker image complete `date`
@@ -29,6 +30,6 @@ phases:
         - echo "Pre Building infrastructure with Terraform...."
         - terraform init -reconfigure
         - terraform apply -var-file=group2_cap2.tfvars --auto-approve
-        - printf '[{"name":"Group2-Cap2-App","imageUri":"$GROUP2_ECR_REPO_VAR:latest"}]' > imagedefinitions.json
+        - printf '[{"name":"Group2-Cap2-App","imageUri":"962804699607.dkr.ecr.us-west-2.amazonaws.com/group2-cap2-ecr-repo-tf"}]' > imagedefinitions.json
 artifacts:
   files: imagedefinitions.json
