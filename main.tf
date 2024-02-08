@@ -15,25 +15,18 @@ terraform {
     bucket = "group2-cap2-s3-tfstate"
     key    = "state/remote-state"
     region = "us-west-2"
-    # profile = "crazyoptimist"
   }
 
 }
   
 provider "aws" {
   region     = "us-west-2"
-#  profile = "crazyoptimist"
-  access_key = var.access_key
-  secret_key = var.secret_key
 }
 
-/*
+
 data "aws_secretsmanager_secret_version" "creds" {
-  # Fill in the name you gave to your secret
   secret_id = "group2_cap2_aws_secret"
 }
-
-*/
 
 resource "aws_ecr_repository" "my_first_ecr_repo" {
   name = var.ecr_repo_name # Naming my repository
