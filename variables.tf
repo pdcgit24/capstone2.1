@@ -1,3 +1,14 @@
+variable "access_key" {
+  description = "The access key"
+  type        = string
+  sensitive   = true
+}
+variable "secret_key" {
+  description = "The secret key"
+  type        = string
+  sensitive   = true
+}
+
 variable "aws_region" {
   type        = string
   description = "The region where resources should live"
@@ -53,18 +64,3 @@ variable "s3_backend_tag" {
   type        = string
 }
  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
