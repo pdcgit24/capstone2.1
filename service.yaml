@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app.kubernetes.io/name: group2-cap2-k8s-app
+    app.kubernetes.io/instance: group2-cap2-k8s-app-instance
+    app.kubernetes.io/version: "1.0.0"
+    app.kubernetes.io/component: backend
+    app.kubernetes.io/managed-by: kubectl
+  name: group2-cap2-k8s-app
+spec:
+  selector:
+    app: group2-cap2-k8s-app
+  type: NodePort
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 3050 
+

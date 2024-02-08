@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app.kubernetes.io/name: group2-cap2-k8s-app
+    app.kubernetes.io/instance: group2-cap2-k8s-app-instance
+    app.kubernetes.io/version: '1.0.0'
+    app.kubernetes.io/managed-by: kubectl
+  name: group2-cap2-k8s-app-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: group2-cap2-k8s-app
+  template:
+    metadata:
+      labels:
+        app: group2-cap2-k8s-app
+    spec:
+      containers:
+        - image: 962804699607.dkr.ecr.us-west-2.amazonaws.com/group2-cap2-ecr-repo:latest 
+          imagePullPolicy: Always
+          name: group2-cap2-k8s-app
+          ports:
+            - containerPort: 3050 
